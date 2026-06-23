@@ -6,6 +6,7 @@
     "python.testing.pytestEnabled": true,
     "python.analysis.extraPaths": [
         "./03_oop",
-        "./06_project_structure/banking_ledger"
+        "./projects/banking_ledger",
+        "./projects/transaction_processor"
     ]
 }

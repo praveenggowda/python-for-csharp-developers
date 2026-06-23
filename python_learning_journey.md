@@ -427,34 +427,118 @@ banking_ledger/
 
 ---
 
-## Standard Library Learned
+## JSON
 
-`Counter`, `defaultdict`, `heapq`, `dataclasses`, `typing`, `pytest`, `venv`
+Four methods. Rule: `s` at the end = string. No `s` = file.
+
+```python
+import json
+
+json.loads('{"name": "Praveen"}')   # string → dict
+json.dumps({"name": "Praveen"})     # dict → string
+json.load(file)                     # file → dict
+json.dump(data, file)               # dict → file
+```
+
+```csharp
+// C# equivalent
+JsonSerializer.Deserialize<T>(jsonString)   // → loads
+JsonSerializer.Serialize(obj)               // → dumps
+```
+
+JSON uses double quotes `"`. Python dict uses single quotes `'`. Same data, different representation.
 
 ---
 
-## First Python Application — Banking Ledger
+## pathlib
 
-Features: Account model, Transaction model, custom exception, deposit, withdraw, balance check, statement retrieval, profile retrieval, unit tests, virtual environment.
+Use `pathlib` to build file paths relative to the current file — works regardless of where you run from.
+
+```python
+from pathlib import Path
+
+path = Path(__file__).parent / "account.json"
+```
+
+`__file__` = current file. `.parent` = its folder. `/ "filename"` = joins the path.
+
+```csharp
+// C# equivalent
+Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "account.json")
+```
+
+---
+
+## File I/O
+
+```python
+# write
+with open(path, "w") as file:
+    json.dump(data, file)
+
+# read
+with open(path, "r") as file:
+    data = json.load(file)
+```
+
+`with open(...)` automatically closes the file — equivalent of `using` in C#.
+
+| Mode | Meaning |
+|---|---|
+| `"r"` | read |
+| `"w"` | write (overwrites) |
+| `"a"` | append |
+
+---
+
+## Idempotency Pattern
+
+Reject duplicate transaction IDs using a set.
+
+```python
+seen_ids = set()
+
+for transaction in transactions:
+    if transaction['id'] not in seen_ids:
+        # process
+        seen_ids.add(transaction['id'])
+```
+
+Use a `set` not a `dict` — only need to track existence, not store values.
+
+---
+
+## Standard Library Learned
+
+`Counter`, `defaultdict`, `heapq`, `dataclasses`, `typing`, `pytest`, `venv`, `json`, `pathlib`
+
+---
+
+## Applications Built
+
+### Banking Ledger
+
+Features: Account model, Transaction model, custom exception, deposit, withdraw, balance check, statement retrieval, unit tests, virtual environment.
 
 Test result: 6 passed.
+
+### Transaction Processor
+
+Features: Read transactions from JSON, idempotency (reject duplicate IDs), deposit/withdraw logic, final balance calculation.
 
 ---
 
 ## Current Level
 
-Comfortable with: functions, lists, dicts, sets, enumerate, range, Counter, defaultdict, heapq, classes, dataclasses, exceptions, pytest, project structure, virtual environments.
+Comfortable with: functions, lists, dicts, sets, enumerate, range, Counter, defaultdict, heapq, classes, dataclasses, exceptions, pytest, project structure, virtual environments, JSON, pathlib, file I/O, idempotency.
 
-Need more practice: JSON, file handling, pathlib, stack problems, deque, production project design, standard library HTTP server.
+Need more practice: deque, stack problems, production project design, standard library HTTP server.
 
 ---
 
 ## Next Topics
 
-1. JSON
-2. File handling
-3. pathlib
-4. Valid Parentheses (Stack)
-5. deque
-6. Standard library HTTP server
-7. Production Python patterns
+1. Valid Parentheses (Stack / deque)
+2. deque patterns
+3. Production Transaction Processor (proper structure, models, tests)
+4. Standard library HTTP server
