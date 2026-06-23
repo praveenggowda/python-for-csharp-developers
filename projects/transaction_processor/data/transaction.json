@@ -1,0 +1,20 @@
+[
+    {
+        "id": "TXN001",
+        "account_id": "001",
+        "transaction_type": "deposit",
+        "amount": 100.0
+    },
+    {
+        "id": "TXN002",
+        "account_id": "001",
+        "transaction_type": "withdraw",
+        "amount": 30.0
+    },
+    {
+        "id": "TXN003",
+        "account_id": "001",
+        "transaction_type": "deposit",
+        "amount": 50.0
+    }
+]
