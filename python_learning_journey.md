@@ -508,9 +508,34 @@ Use a `set` not a `dict` — only need to track existence, not store values.
 
 ---
 
+## deque — Stack
+
+```python
+from collections import deque
+
+stack = deque()
+stack.append(item)   # push
+stack.pop()          # pop from top
+stack[-1]            # peek
+len(stack) == 0      # is empty
+```
+
+```csharp
+// C# equivalent
+var stack = new Stack<char>();
+stack.Push(item);
+stack.Pop();
+stack.Peek();
+stack.Count == 0
+```
+
+Used in: Valid Parentheses, Reverse Polish Notation
+
+---
+
 ## Standard Library Learned
 
-`Counter`, `defaultdict`, `heapq`, `dataclasses`, `typing`, `pytest`, `venv`, `json`, `pathlib`
+`Counter`, `defaultdict`, `heapq`, `dataclasses`, `typing`, `pytest`, `venv`, `json`, `pathlib`, `deque`
 
 ---
 
@@ -518,27 +543,33 @@ Use a `set` not a `dict` — only need to track existence, not store values.
 
 ### Banking Ledger
 
-Features: Account model, Transaction model, custom exception, deposit, withdraw, balance check, statement retrieval, unit tests, virtual environment.
+Features: Account, Transaction dataclasses, custom exception, deposit, withdraw, balance, statement, profile, unit tests, venv.
 
 Test result: 6 passed.
 
 ### Transaction Processor
 
-Features: Read transactions from JSON, idempotency (reject duplicate IDs), deposit/withdraw logic, final balance calculation.
+Structure: `src/models.py`, `src/processor.py`, `src/storage.py`, `src/exceptions.py`, `tests/`
+
+Features: JSON file loading, idempotency, deposit/withdraw, 4 custom exceptions, 8 tests.
+
+Business rules proven through tests:
+- Duplicate transaction ID → `DuplicateTransactionException`
+- Withdrawal exceeds balance → `InsufficientFundsException`
+- Unknown transaction type → `InvalidTransactionTypeException`
+- Negative or zero amount → `NegativeAmountException`
 
 ---
 
 ## Current Level
 
-Comfortable with: functions, lists, dicts, sets, enumerate, range, Counter, defaultdict, heapq, classes, dataclasses, exceptions, pytest, project structure, virtual environments, JSON, pathlib, file I/O, idempotency.
+Comfortable with: functions, lists, dicts, sets, enumerate, range, Counter, defaultdict, heapq, classes, dataclasses, custom exceptions, pytest, project structure, venv, JSON, pathlib, file I/O, idempotency, deque, separation of concerns.
 
-Need more practice: deque, stack problems, production project design, standard library HTTP server.
+Need more practice: standard library HTTP server, async.
 
 ---
 
 ## Next Topics
 
-1. Valid Parentheses (Stack / deque)
-2. deque patterns
-3. Production Transaction Processor (proper structure, models, tests)
-4. Standard library HTTP server
+1. Mock take-home (timed, 2 hours, from empty folder)
+2. Standard library HTTP server
